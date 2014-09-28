@@ -1,0 +1,26 @@
+#authorize {
+	height: 50px;
+	font-weight: bolder;
+	margin-left: 45%;
+	margin-top: 10%;
+}
+
+#login {
+	text-align: center;
+}
+
+.or {
+	font-size: 30px;
+	font-style: italic;
+	font-family: sans-serif;
+	color: #808080;
+}
+
+#selfLoginForm {
+	margin-top: 30px;
+}
+
+.large-title {
+	font-size: 20px;
+	text-align: left;
+}
