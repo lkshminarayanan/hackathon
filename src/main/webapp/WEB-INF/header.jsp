@@ -18,7 +18,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li <s:if test="%{pageType.toString()=='HOME'}">class="active"</s:if>>
-					<a href="home">Home</a>
+					<a href="home">Dashboard</a>
 				</li>
 				<li <s:if test="%{pagetype.toString()=='SEARCH'}">class="active"</s:if>><a
 					href="home">Search Spotfix</a></li>

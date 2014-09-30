@@ -1,0 +1,15 @@
+.center {
+	text-align: center;
+}
+
+/* for map's sake */
+html {
+  overflow: auto;
+}
+
+#map-canvas {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	position:relative;
+}
