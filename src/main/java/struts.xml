@@ -11,12 +11,21 @@
 	<package name="default" namespace="/" extends="struts-default">
 
 		<action name="logout" class="in.cleanindia.authentication.Login" method="logout">
-			<result name="success">/home</result>
+			<result name="success" type="redirect">home</result>
 		</action>
 
 		<action name="processGoogleAuth" class="in.cleanindia.authentication.processGoogleOAuth">
 			<result name="success">/WEB-INF/login/success.jsp</result>
 		</action>
+		
+		<action name="createSpotfix" class="in.cleanindia.actions.CreateSpotfix">
+		  <result name="success" type="redirect">${viewUrl}</result>
+		</action>
+		
+		<action name="viewSpotfix" class="in.cleanindia.actions.ViewSpotfix">
+      <result name="success">/WEB-INF/index.jsp</result>
+      <result name="home" type="redirect">home</result>
+    </action>
 
 		<action name="*" class="in.cleanindia.actions.LoadHome">
 			<result name="success">/WEB-INF/index.jsp</result>

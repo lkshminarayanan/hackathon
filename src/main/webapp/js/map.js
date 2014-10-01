@@ -1,4 +1,4 @@
-function initializeMap() {
+function initializeMap(center) {
     
     /* set map's height dynamically */
     $("#map-canvas").height(.75 * $(window).height());
@@ -21,48 +21,49 @@ function initializeMap() {
     var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
     
-    /* center map on india */
-    var country = "India";
-    var geocoder = new google.maps.Geocoder();
-    
-    geocoder.geocode( {'address' : country}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            map.panTo(results[0].geometry.location);
-        }
-    });
+    if(center === undefined){
+        /* center map on india */
+        var country = "India";
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode( {'address' : country}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.panTo(results[0].geometry.location);
+            }
+        });
+    } else {
+        map.setZoom(15);
+        map.panTo(center);
+    }
     
     return map;
 }
 
 var initializeAutoComplete = function(map){
-    
     /* initialize the textbox */
-    var autocomplete = new google.maps.places.Autocomplete(
-            /** @type {HTMLInputElement} */
-            (document.getElementById('locationAutoComplete')),
-            { 
-                types: ['geocode'],
-                componentRestrictions: {
-                    country: 'IN'
-                }
-            }
-    );
+    var tBox = document.getElementById('locationAutoComplete');
+    var autocomplete = new google.maps.places.Autocomplete(tBox,{ 
+        types: ['geocode'],
+        componentRestrictions: {
+            country: 'IN'
+        }
+    });
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
         $("#spotfixTextLocation").text(place.formatted_address);
         $("#spotfixText").show();
         $("#spotfixInput").hide();
-        console.log(place);
-        console.log(place.geometry.location);
         map.panTo(place.geometry.location);
         map.setZoom(15);
-        addMarker(map, place.geometry.location, place.address_components[0].long_name);
+        locationMarker = addMarker(map, place.geometry.location, place.address_components[0].long_name, place.icon);
+        postLocationChoiceProcessing(place);
     });
     
     /* register the 'x' everytime */
     $("#change-addr").click(function(e){
         e.preventDefault();
+        locationMarker.setMap(null);
         $("#spotfixText").hide();
         $("#spotfixTextLocation").text("");
         $("#spotfixInput").val("");
@@ -83,23 +84,18 @@ String.prototype.toPrintableTime = function(){
     return time.toLocaleTimeString("en-us", options);
 }
 
-var addMarker = function(map, location, title){
-    var marker = new google.maps.Marker({
+var addMarker = function(map, location, title, icon){
+    var options = {
         map:map,
         draggable:true,
         animation: google.maps.Animation.DROP,
         position: location,
         title: title,
         draggable:false
-    }); 
+    }
+    if(icon !== undefined){
+        options.icon = icon;
+    }
+    var marker = new google.maps.Marker(options); 
+    return marker;
 };
-
-$(document).ready(function(){
-    var map = initializeMap();
-    var autocomplete = initializeAutoComplete(map);
-    var bounds = new google.maps.LatLngBounds();
-    var infoWindow = new google.maps.InfoWindow();
-    var markerData = [];
-
-    /* retriveSpotfixes(map, bounds, infoWindow, markerData, 0); */
-});

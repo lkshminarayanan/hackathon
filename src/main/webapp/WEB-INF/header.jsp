@@ -20,10 +20,10 @@
 				<li <s:if test="%{pageType.toString()=='HOME'}">class="active"</s:if>>
 					<a href="home">Dashboard</a>
 				</li>
-				<li <s:if test="%{pagetype.toString()=='SEARCH'}">class="active"</s:if>><a
-					href="home">Search Spotfix</a></li>
+				<li <s:if test="%{pageType.toString()=='VIEW'}">class="active"</s:if>><a
+					href="home">View Spotfix</a></li>
 				<li <s:if test="%{pageType.toString()=='CREATE'}">class="active"</s:if>><a
-					href="home">Create Spotfix</a></li>
+					href="home">Report Spotfix</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<s:if test="%{userSignedIn == true}">

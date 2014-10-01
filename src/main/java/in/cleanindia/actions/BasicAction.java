@@ -15,13 +15,15 @@ public abstract class BasicAction extends ActionSupport implements SessionAware{
     private static final long serialVersionUID = 8287857932994611367L;
     protected SessionMap<String, Object> sessionMap;
     
+    protected static final String HOME = "home";
+    
     public enum pageTypes{
         HOME,
-        SEARCH,
+        VIEW,
         CREATE
     };
     
-    private pageTypes pageType = pageTypes.HOME;
+    protected pageTypes pageType = pageTypes.HOME;
 
     public pageTypes getPageType() {
         return pageType;
